@@ -9,17 +9,17 @@
  */
 int print_address(va_list l, flags_t *f)
 {
-	char *s;
-	unsigned long int x = va_arg(l, unsigned long int);
+	char *str;
+	unsigned long int p = va_arg(l, unsigned long int);
 
 	register int count = 0;
 
 	(void)f;
 
-	if (!x)
+	if (!p)
 		return (_puts("(nil)"));
-	s = convert(x, 16, 1);
+	str = convert(p, 16, 1);
 	count += _puts("0x");
-	count += _puts(s);
+	count += _puts(str);
 	return (count);
 }

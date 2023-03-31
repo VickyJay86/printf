@@ -8,11 +8,11 @@
  * @l: va_list arguments from _printf
  * @f: pointer to the struct flags that determines
  * if a flag is passed to _printf
- * Return: number of  printed char
+ * Return: number of char printed
  */
 int print_bigS(va_list l, flags_t *f)
 {
-	int y, tally = 0;
+	int i, count = 0;
 	char *res;
 	char *s = va_arg(l, char *);
 
@@ -20,21 +20,21 @@ int print_bigS(va_list l, flags_t *f)
 	if (!s)
 		return (_puts("(null)"));
 
-	for (y = 0; s[y]; y++)
+	for (i = 0; s[i]; i++)
 	{
-		if (s[y] > 0 && (s[y] < 32 || s[y] >= 127))
+		if (s[i] > 0 && (s[i] < 32 || s[i] >= 127))
 		{
 			_puts("\\x");
-			tally += 2;
-			res = convert(s[y], 16, 0);
+			count += 2;
+			res = convert(s[i], 16, 0);
 			if (!res[1])
-				tally += _putchar('0');
-			tally += _puts(res);
+				count += _putchar('0');
+			count += _puts(res);
 		}
 		else
-			tally += _putchar(s[y]);
+			count += _putchar(s[i]);
 	}
-	return (tally);
+	return (count);
 }
 
 /**
@@ -46,20 +46,20 @@ int print_bigS(va_list l, flags_t *f)
  */
 int print_rev(va_list l, flags_t *f)
 {
-	int x = 0, y;
+	int i = 0, j;
 	char *s = va_arg(l, char *);
 
 	(void)f;
 	if (!s)
 		s = "(null)";
 
-	while (s[x])
-		x++;
+	while (s[i])
+		i++;
 
-	for (y = x - 1; y >= 0; y--)
-		_putchar(s[y]);
+	for (j = i - 1; j >= 0; j--)
+		_putchar(s[j]);
 
-	return (x);
+	return (i);
 }
 
 /**
@@ -71,27 +71,27 @@ int print_rev(va_list l, flags_t *f)
  */
 int print_rot13(va_list l, flags_t *f)
 {
-	int x, y;
+	int i, j;
 	char rot13[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	char ROT13[] = "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM";
 	char *s = va_arg(l, char *);
 
 	(void)f;
-	for (y = 0; s[y]; y++)
+	for (j = 0; s[j]; j++)
 	{
-		if (s[y] < 'A' || (s[y] > 'Z' && s[y] < 'a') || s[y] > 'z')
-			_putchar(s[y]);
+		if (s[j] < 'A' || (s[j] > 'Z' && s[j] < 'a') || s[j] > 'z')
+			_putchar(s[j]);
 		else
 		{
-			for (x = 0; x <= 52; x++)
+			for (i = 0; i <= 52; i++)
 			{
-				if (s[y] == rot13[x])
-					_putchar(ROT13[x]);
+				if (s[j] == rot13[i])
+					_putchar(ROT13[i]);
 			}
 		}
 	}
 
-	return (y);
+	return (j);
 }
 
 /**

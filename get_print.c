@@ -1,12 +1,14 @@
 #include "main.h"
 
 /**
- * get_print - loops through the structs array
+ * get_print - selects the right printing function
  * depending on the conversion specifier passed to _printf
  * @s: character that holds the conversion specifier
  * Description: the function loops through the structs array
  * func_arr[] to find a match between the specifier passed to _printf
- * Return: 0 (success)
+ * and the first element of the struct, and then the approriate
+ * printing function
+ * Return: a pointer to the matching printing function
  */
 int (*get_print(char s))(va_list, flags_t *)
 {
@@ -28,10 +30,10 @@ int (*get_print(char s))(va_list, flags_t *)
 		};
 	int flags = 14;
 
-	register int x;
+	register int i;
 
-	for (x = 0; x < flags; x++)
-		if (func_arr[x].c == s)
-			return (func_arr[x].f);
+	for (i = 0; i < flags; i++)
+		if (func_arr[i].c == s)
+			return (func_arr[i].f);
 	return (NULL);
 }
